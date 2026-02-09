@@ -10,7 +10,7 @@
 <body class="bg-light">
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
-            <h2 class="mb-4 text-center">Login</h2>
+            <h2 class="mb-4 text-center">ESPACE ADMIN</h2>
             <form method="post" action="/login">
                 <div class="mb-3">
                     <label for="name" class="form-label">Nom</label>

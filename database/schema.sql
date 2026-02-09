@@ -11,3 +11,10 @@ CREATE TABLE Categorie(
   id_cat SERIAL PRIMARY KEY,
   description VARCHAR(50)
 );
+
+CREATE TABLE IF NOT EXISTS users(
+  id_user SERIAL PRIMARY KEY,
+  nom VARCHAR(50),
+  email VARCHAR(50),
+  pwd VARCHAR(20)
+);
