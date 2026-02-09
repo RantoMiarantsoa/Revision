@@ -30,3 +30,19 @@ CREATE TABLE Objet(
   FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
+CREATE TABLE image(
+  id_img SERIAL PRIMARY KEY,
+  url VARCHAR(255),
+  id_obj INT,
+  FOREIGN KEY (id_obj) REFERENCES Objet(id_obj)
+);
+
+CREATE TABLE Echange(
+  id_ech SERIAL PRIMARY KEY,
+  id_obj1 INT,
+  id_obj2 INT,
+  date_ech DATE,
+  FOREIGN KEY (id_obj1) REFERENCES Objet(id_obj),
+  FOREIGN KEY (id_obj2) REFERENCES Objet(id_obj)
+);
+
