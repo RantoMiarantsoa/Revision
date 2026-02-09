@@ -24,6 +24,7 @@ CREATE TABLE Objet(
   id_obj SERIAL PRIMARY KEY,
   nom VARCHAR(50),
   description TEXT,
+  prix DECIMAL(10,2),
   id_cat INT,
   id_user INT,
   FOREIGN KEY (id_cat) REFERENCES Categorie(id_cat),
@@ -45,4 +46,6 @@ CREATE TABLE Echange(
   FOREIGN KEY (id_obj1) REFERENCES Objet(id_obj),
   FOREIGN KEY (id_obj2) REFERENCES Objet(id_obj)
 );
+
+
 
