@@ -1,6 +1,6 @@
 -- Création de la base (à exécuter séparément si besoin)
--- CREATE DATABASE takalo;
--- \c takalo
+CREATE DATABASE takalo;
+\c takalo
 
 CREATE TABLE IF NOT EXISTS admin (
     id SERIAL PRIMARY KEY,
