@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../repositories/ObjetRepository.php';
 require_once __DIR__ . '/../repositories/ImageRepository.php';
+require_once __DIR__ . '/../repositories/CategorieRepository.php';
 
 class ObjetController {
     public static function postAjouter() {
@@ -55,5 +56,23 @@ class ObjetController {
         }
 
         Flight::redirect('/objet/form');
+    }
+
+    public function getObjetByUserConnected($id_user) {
+        $pdo = Flight::db();
+        $Objet = new ObjetRepository($pdo);
+        $liste = $Objet->getByUser($id_user);
+
+        $catRepo = new CategorieRepository($pdo);
+        $imgRepo = new ImageRepository($pdo);
+
+        // Enrichir chaque objet avec le nom de la catégorie et les images
+        foreach ($liste as &$objet) {
+            $categorie = $catRepo->getById($objet['id_cat'] ?? null);
+            $objet['categorie'] = $categorie['description'] ?? '';
+            $objet['images'] = $imgRepo->getByObjet($objet['id_obj'] ?? null);
+        }
+
+        return $liste;
     }
 }

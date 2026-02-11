@@ -26,3 +26,12 @@ Flight::route('GET /objet/form', function() {
 
 Flight::route('POST /objet/ajouter', ['ObjetController', 'postAjouter']);
 
+Flight::route('GET /objet/list', function() {
+    $pdo = Flight::db();
+    $repo = new ObjetController();
+    $objets = $repo->getObjetByUserConnected(1);
+
+    $categoriesRepo = new CategorieRepository($pdo);
+    
+    Flight::render('auth/listObjet', ['objets' => $objets]);
+});

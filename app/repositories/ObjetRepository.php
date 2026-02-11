@@ -39,4 +39,10 @@
             $stmt->execute([$id_cat]);
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
+
+        public function getByUser($id_user) {
+            $stmt = $this->pdo->prepare("SELECT * FROM Objet WHERE id_user = ?");
+            $stmt->execute([$id_user]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
     }
