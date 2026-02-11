@@ -33,5 +33,5 @@ Flight::route('GET /objet/list', function() {
 
     $categoriesRepo = new CategorieRepository($pdo);
     
-    Flight::render('auth/listObjet', ['objets' => $objets]);
+Flight::render('auth/listObjet', ['objets' => $objets]);
 });
