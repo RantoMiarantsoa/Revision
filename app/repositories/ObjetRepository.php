@@ -18,8 +18,13 @@
         }
 
         public function create($nom, $description, $prix, $id_cat, $id_user) {
+
             $stmt = $this->pdo->prepare("INSERT INTO takalo_Objet (nom, description, prix, id_cat, id_user) VALUES (?, ?, ?, ?, ?)");
             return $stmt->execute([$nom, $description, $prix, $id_cat, $id_user]);
+            $stmt = $this->pdo->prepare("INSERT INTO Objet (nom, description, prix, id_cat, id_user) VALUES (?, ?, ?, ?, ?) RETURNING id_obj");
+            $stmt->execute([$nom, $description, $prix, $id_cat, $id_user]);
+            return $stmt->fetchColumn();
+
         }
 
         public function update($id, $nom, $description, $prix, $id_cat, $id_user) {
@@ -35,6 +40,12 @@
         public function getByCategory($id_cat) {
             $stmt = $this->pdo->prepare("SELECT * FROM takalo_Objet WHERE id_cat = ?");
             $stmt->execute([$id_cat]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        public function getByUser($id_user) {
+            $stmt = $this->pdo->prepare("SELECT * FROM Objet WHERE id_user = ?");
+            $stmt->execute([$id_user]);
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
     }
