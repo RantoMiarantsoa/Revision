@@ -13,8 +13,8 @@
             <h2 class="mb-4 text-center">ESPACE ADMIN</h2>
             <form method="post" action="/login">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nom</label>
-                    <input type="texte" class="form-control" id="nom" name="nom" required autofocus>
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" required autofocus>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>

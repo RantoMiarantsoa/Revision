@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../repositories/AdminRepository.php';
+
 class AdminController {
 
   public static function showRegister() {
@@ -19,20 +21,27 @@ class AdminController {
 
   // Process login
   public static function postLogin() {
+    $request = Flight::request();
+    $nom = trim((string)$request->data->nom);
+    $password = trim((string)$request->data->password);
+
+    // Get PDO connection
     $pdo = Flight::db();
-    $repo = new UserRepository($pdo);
-    $req = Flight::request();
-    $nom = trim((string)$req->data->nom);
-  
+    
+    // Look up admin by nom using AdminRepository
+    $repo = new AdminRepository($pdo);
+    $user = $repo->getAdmin($nom);
 
-    // Successful login
-    $_SESSION['user_id'] = (int)$user['id'];
-    Flight::json([
-      'success' => true,
-      'redirect' => '/home'
-    ]);
+    // Verify password
+    if ($user && $user['mdp'] === $password) {
+      $_SESSION['user_id'] = (int)$user['id'];
+      Flight::redirect('/home');
+    } else {
+      // Login failed - show error
+      self::showLogin(['nom' => 'Nom ou mot de passe incorrect']);
+    }
   }
-
+  
   public static function showHome() {
     $userId = $_SESSION['user_id'] ?? null;
     if (!$userId) {
@@ -40,8 +49,8 @@ class AdminController {
       return;
     }
     $pdo = Flight::db();
-    $repo = new UserRepository($pdo);
-    $user = $repo->findById($userId);
+    $repo = new AdminRepository($pdo);
+    $user = $repo->getAdminById($userId);
     Flight::render('home', ['user'=>$user]);
   }
 

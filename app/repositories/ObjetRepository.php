@@ -18,13 +18,9 @@
         }
 
         public function create($nom, $description, $prix, $id_cat, $id_user) {
-
-            $stmt = $this->pdo->prepare("INSERT INTO takalo_Objet (nom, description, prix, id_cat, id_user) VALUES (?, ?, ?, ?, ?)");
-            return $stmt->execute([$nom, $description, $prix, $id_cat, $id_user]);
-            $stmt = $this->pdo->prepare("INSERT INTO Objet (nom, description, prix, id_cat, id_user) VALUES (?, ?, ?, ?, ?) RETURNING id_obj");
+            $stmt = $this->pdo->prepare("INSERT INTO takalo_Objet (nom, description, prix, id_cat, id_user) VALUES (?, ?, ?, ?, ?) RETURNING id_obj");
             $stmt->execute([$nom, $description, $prix, $id_cat, $id_user]);
             return $stmt->fetchColumn();
-
         }
 
         public function update($id, $nom, $description, $prix, $id_cat, $id_user) {
