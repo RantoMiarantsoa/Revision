@@ -47,5 +47,3 @@ CREATE TABLE IF NOT EXISTS takalo_Echange(
   FOREIGN KEY (id_obj2) REFERENCES takalo_Objet(id_obj)
 );
 
-
-
